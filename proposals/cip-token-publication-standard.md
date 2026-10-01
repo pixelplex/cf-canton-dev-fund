@@ -46,7 +46,7 @@ A publisher who does not opt in publishes nothing under this CIP and remains usa
 
 These routes MUST exist for every published token, and the server MUST answer them. For each read, the publisher chooses one of three:
 
-1. Serve it. A caller with access receives the successful body. The publisher MAY require a bearer token it accepts for that caller.
+1. Serve it. A caller with access receives the successful body. The publisher MAY require a token it accepts for that caller.
 2. Not serve it. Every caller receives `403` and `access_not_granted`. The body has no `tokenUrl`.
 3. Not serve it until the caller has a token, and say where to get one. A caller without an accepted token receives `403` and `access_not_granted`, and the body includes `tokenUrl`. A caller with an accepted token receives the successful body.
 
@@ -61,7 +61,7 @@ No other read in this CIP may be withheld. The publisher MUST NOT express "not s
 
 ### Access token
 
-Only the reads in the previous section MAY require a token sent with the request. The token is an opaque secret the publisher gives to a caller it is willing to serve. This CIP does not say how that secret is issued or rotated, except that choice 3 above MAY name a `tokenUrl` on the error.
+Only the reads in the previous section MAY require a token. The token is an opaque secret the publisher gives to a caller it is willing to serve. This CIP does not say how that secret is issued, rotated, or sent. The client decides how to present it. Choice 3 above MAY name a `tokenUrl` on the error.
 
 A publisher that serves one of those reads to everyone MUST accept the call with no token. A publisher that does not serve it to this caller MUST reject the call with `access_not_granted`. That is the same error when the token is missing, when it is wrong, and when the publisher serves the read to nobody.
 

@@ -95,7 +95,7 @@ For each read, the publisher chooses one of three. The route stays in place for 
 
 | Choice | What the caller gets |
 | --- | --- |
-| Serve the read | The successful body. The publisher may still require a bearer token it accepts for that caller. |
+| Serve the read | The successful body. The publisher may still require a token it accepts for that caller. |
 | Do not serve the read | `403` for every caller. `tokenUrl` is absent. |
 | Serve it only with a token, and say where to get one | `403` with `tokenUrl` when the caller has no accepted token. The successful body when the token is accepted. |
 
@@ -121,17 +121,13 @@ The body of a successful response is not defined here. The access rule is. No ot
 
 ### Access token
 
-Send the secret on these paths only:
+The token is an opaque string the publisher gave the caller. This API does not say how the client sends it. The client decides that.
 
-```http
-Authorization: Bearer <token>
-```
+Other paths in this file do not use the token. Sending one on a catalog, package, version, migration, or proof call does not change that call.
 
-The token is an opaque string the publisher gave the caller. Other paths in this file do not read this header. Sending it on a catalog, package, version, migration, or proof call does not change that call.
+If the publisher serves the read to everyone, the caller needs no token.
 
-If the publisher serves the read to everyone, the header may be omitted.
-
-If the publisher does not serve the read to this caller, the response is `403` with `access_not_granted`. That includes a missing token, a wrong token, and a publisher that serves the read to nobody. `tokenUrl` is present only when the publisher chose to name where a token can be obtained.
+If the publisher does not serve the read to this caller, the response is `403` with `access_not_granted`. That includes a missing token, a token the publisher does not accept, and a publisher that serves the read to nobody. `tokenUrl` is present only when the publisher chose to name where a token can be obtained.
 
 `404` is not used for a read the publisher does not serve. `404` still means this registrar does not publish `{cid}`. An empty `200` is not a substitute for `access_not_granted`. Empty means the caller is served and there is nothing to report.
 
