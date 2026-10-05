@@ -26,7 +26,7 @@ This CIP is licensed under CC0-1.0: [Creative Commons CC0 1.0 Universal](https:/
 
 The Token Publication Standard is the set of facts a publisher gives a client, and the on-ledger check a client uses to confirm the publication id.
 
-A **publisher** is the author of a token's contracts and the operator of the node those contracts are deployed on. This CIP treats those as one role. A **client** is a backend that integrates the token. A **published token** is a token for which the publisher has created an publication-registration contract and exposes the publication facts below.
+A **publisher** is the author of a token's contracts and the operator of the node those contracts are deployed on. This CIP treats those as one role. A **client** is a backend that integrates the token. A **published token** is a token for which the publisher has created a publication-registration contract and exposes the publication facts below.
 
 ### Publication facts
 
@@ -175,7 +175,7 @@ Standardizing every free-form argument map, so that migrations would be unnecess
 
 The parties and the instrument id below are placeholders. They are not a token on the network.
 
-The publisher `example-issuer::1220abcd` creates an publication-registration contract signed by that party, with `instrumentId` `EXAMPLE` and `instrumentAdmin` set to the same party. The contract id of that contract is the id clients of this CIP use for that published token. Holdings and transfer of a CIP-0056 token continue to use `instrumentAdmin` and `instrumentId`.
+The publisher `example-issuer::1220abcd` creates a publication-registration contract signed by that party, with `instrumentId` `EXAMPLE` and `instrumentAdmin` set to the same party. The contract id of that contract is the id clients of this CIP use for that published token. Holdings and transfer of a CIP-0056 token continue to use `instrumentAdmin` and `instrumentId`.
 
 A custody backend that integrates `EXAMPLE` watches the publication facts. It receives a migration whose description is that `settlementRef` becomes mandatory, with `requiresAction` set, a target version, and an effective time. It changes its argument construction before that time, instead of discovering the rejection in production and asking the publisher what changed.
 
